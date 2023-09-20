@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.body{
+height: 100vh;
+background-image:url(./assets/d76d6361-3fbf-4842-8dd7-e05520557280.jpg) ;
+background-size: cover;
+background-repeat: no-repeat;
+}
+
+.section{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, 125%);
+}
+
+.boton{
+    background-color: rgb(16, 16, 16);
+    color: rgb(0, 136, 255);
+    padding: 5%;
+    font-size: 500%;
+    border-radius: 50px;
+}
+
+.boton-off{
+    display: none;
+}
+
