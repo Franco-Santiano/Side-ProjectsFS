@@ -282,6 +282,122 @@ img{
     cursor: pointer;
 }
 
+.header-mobile{
+    display: none;
+}
+.close-menu{
+    display: none;
+}
 .disabled{
     display: none;
+}
+
+/*** Media Queries ***/
+
+@media screen and (max-width: 1080px) {
+    
+    .products-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .wrapper{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    aside{
+        position: fixed;
+        z-index: 10;
+        background-color: var(--clr-black);
+        left: 0;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition:.2s;
+    }
+
+    .footer-txt{
+        padding-right: 1.5rem;
+    }
+
+    .aside-visible{
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .menu-boton.active::before,
+    .menu-boton.active::after{
+        display: none;
+    }
+
+    main{
+        margin: 1rem;
+        margin-top: 0;
+        padding: 2rem;
+    }
+    
+    .products-container{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .header-mobile{
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-mobile .logo{
+        color: var(--clr-main);
+    }
+
+    .open-menu, .close-menu{
+        background-color: transparent;
+        color: #0EF6CC;
+        border: 0;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .close-menu{
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .cart-product{
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .cart-product-subtotal{
+        display: none;
+    }
+
+    .cart-product-delete{
+        padding-left: 8rem;
+    }
+
+    .cart-actions{
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .products-container{
+        grid-template-columns: 1fr;
+    }
+    .cart-actions{
+        justify-content: center;
+        flex-wrap: wrap;
+        row-gap: 1rem;
+        }
 }
