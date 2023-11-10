@@ -67,6 +67,25 @@ function updateDeleteButton(){
   }
 
 function deleteProductCart(e){
+    Toastify({
+        text: "Producto eliminado",
+        duration: 3000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true,
+        offset: {
+          x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        }, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right ,#1b2223 , #3a4f50)",
+          borderRadius: ".5rem",
+          textTransform: "uppercase",
+          fontSize: '.75rem',
+          boxShadow: 'none'
+        },// Callback after click
+      }).showToast();
     const idButton = e.currentTarget.id;
     const index = productInCart.findIndex(x=>x.id === idButton);
     productInCart.splice(index,1);
@@ -75,13 +94,50 @@ function deleteProductCart(e){
 }
 
 clearCart.addEventListener("click",cleanCart);
-
-
 function cleanCart(){
-
-    productInCart.length = 0;
-    localStorage.setItem("Products-in-cart",JSON.stringify(productInCart));
-    loadProductsCart();
+    Swal.fire({
+        title: "<strong>Estas seguro de eliminar todo el carrito?</strong>",
+        icon: "question",
+        html: `
+          No podras reestablecerlo una vez eliminados
+          Productos a eliminar: ${productInCart.reduce((acc,producto)=> acc + producto.cantidad, 0)}
+        `,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: `Si, estoy seguro`,
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonText: `No, no estoy seguro`,
+        cancelButtonAriaLabel: "Thumbs down",
+        background: '#3a4f50',
+        color: '#0EF6CC',
+        confirmButtonColor: '#0ba387',
+        cancelButtonColor: 'red'
+      }).then((result)=>{
+        if(result.isConfirmed){
+            Toastify({
+                text: "Productos eliminados",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true,
+                offset: {
+                  x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                  y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                }, // Prevents dismissing of toast on hover
+                style: {
+                  background: "linear-gradient(to right ,#1b2223 , #3a4f50)",
+                  borderRadius: ".5rem",
+                  textTransform: "uppercase",
+                  fontSize: '.75rem',
+                  boxShadow: 'none'
+                },// Callback after click
+              }).showToast();
+            productInCart.length = 0;
+            localStorage.setItem("Products-in-cart",JSON.stringify(productInCart));
+            loadProductsCart();
+        }
+      });
 }
 
 

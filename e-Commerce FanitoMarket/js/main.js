@@ -1,155 +1,13 @@
-const productos = [
-  {
-    id: "abrigo-01",
-    titulo:"Abrigo 1",
-    imagen: "./assets/imgs/abrigos/buzo1.jpg",
-    categoria: {
-      nombre: "Abrigos",
-      id: "abrigos"
-    },
-    precio: 2000,
-  },
-  {
-    id: "abrigo-02",
-    titulo:"Abrigo 2",
-    imagen: "./assets/imgs/abrigos/buzo2.jpg",
-    categoria: {
-      nombre: "Abrigos",
-      id: "abrigos"
-    },
-    precio: 2200,
-  },
-  {
-    id: "abrigo-03",
-    titulo:"Abrigo 3",
-    imagen: "./assets/imgs/abrigos/buzo3.webp",
-    categoria: {
-      nombre: "Abrigos",
-      id: "abrigos"
-    },
-    precio: 4000,
-  },
-  {
-    id: "abrigo-04",
-    titulo:"Abrigo 4",
-    imagen: "./assets/imgs/abrigos/buzo4.webp",
-    categoria: {
-      nombre: "Abrigos",
-      id: "abrigos"
-    },
-    precio: 20400,
-  },
-  {
-    id: "abrigo-05",
-    titulo:"Abrigo 5",
-    imagen: "./assets/imgs/abrigos/buzo5.webp",
-    categoria: {
-      nombre: "Abrigos",
-      id: "abrigos"
-    },
-    precio: 22000,
-  },
-  {
-    id: "remera-01",
-    titulo:"Remera 1",
-    imagen: "./assets/imgs/remeras/remera1.jpg",
-    categoria: {
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 1000,
-  },
-  {
-    id: "remera-02",
-    titulo:"Remera 2",
-    imagen: "./assets/imgs/remeras/remera2.webp",
-    categoria: {
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 3300,
-  },
-  {
-    id: "remera-03",
-    titulo:"Remera 3",
-    imagen: "./assets/imgs/remeras/remera3.webp",
-    categoria: {
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 13000,
-  },
-  {
-    id: "remera-04",
-    titulo:"Remera 4",
-    imagen: "./assets/imgs/remeras/remera4.webp",
-    categoria: {
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 14000,
-  },
-  {
-    id: "remera-05",
-    titulo:"Remera 5",
-    imagen: "./assets/imgs/remeras/remera5.jpg",
-    categoria: {
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 10500,
-  },
-  {
-    id: "pantalon-01",
-    titulo:"Pantalon 1",
-    imagen: "./assets/imgs/pantalones/jeans1.jpg",
-    categoria: {
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 30500,
-  },
-  {
-    id: "pantalon-02",
-    titulo:"Pantalon 2",
-    imagen: "./assets/imgs/pantalones/jeans2.jpg",
-    categoria: {
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 40500,
-  },
-  {
-    id: "pantalon-03",
-    titulo:"Pantalon 3",
-    imagen: "./assets/imgs/pantalones/jeans3.webp",
-    categoria: {
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 20500,
-  },
-  {
-    id: "pantalon-04",
-    titulo:"Pantalon 4",
-    imagen: "./assets/imgs/pantalones/jeans4.jpg",
-    categoria: {
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 42500,
-  },
-  {
-    id: "pantalon-05",
-    titulo:"Pantalon 5",
-    imagen: "./assets/imgs/pantalones/jeans5.webp",
-    categoria: {
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 50000,
-  },
-];
+let productos = [];
+
+fetch("./js/productos.json")
+  .then(response => response.json())
+  .then(data => {
+    productos = data;
+    uploadProducts(productos);
+  })
+
+
 
 const productContainer = document.querySelector("#product-container");
 const buttonCattegory = document.querySelectorAll(".nav-button");
@@ -180,7 +38,7 @@ productContainer.append(div);
 };
 
 
-uploadProducts(productos);
+
 
 buttonCattegory.forEach(button =>{
   button.addEventListener("click",(e)=>{
@@ -220,6 +78,25 @@ if(productInCartLS){
 }
 
 function addProductCart(e) {
+  Toastify({
+    text: "Producto agregado",
+    duration: 3000,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true,
+    offset: {
+      x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+      y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+    }, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right ,#1b2223 , #3a4f50)",
+      borderRadius: ".5rem",
+      textTransform: "uppercase",
+      fontSize: '.75rem',
+      boxShadow: 'none'
+    },// Callback after click
+  }).showToast();
   const idButton = e.currentTarget.id;
   const productAdded = productos.find(producto => producto.id === idButton);
   
